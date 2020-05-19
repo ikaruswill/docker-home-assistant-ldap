@@ -22,7 +22,7 @@ steps:
       cpu: 500
       memory: 100MiB
   settings:
-    repo: ikaruswill/home-assistant-ldapsearch
+    repo: ikaruswill/home-assistant-ldap
     build_args:
     - HOMEASSISTANT_VERSION=${DRONE_TAG}
     auto_tag: true
@@ -62,7 +62,7 @@ steps:
       cpu: 500
       memory: 100MiB
   settings:
-    repo: ikaruswill/home-assistant-ldapsearch
+    repo: ikaruswill/home-assistant-ldap
     auto_tag: true
     auto_tag_suffix: linux-arm64
     build_args:

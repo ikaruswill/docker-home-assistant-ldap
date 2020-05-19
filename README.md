@@ -1,2 +1,2 @@
-# docker-home-assistant-ldapsearch
-Home assistant docker image with added ldapsearch
+# docker-home-assistant-ldap
+Home assistant docker image with added ldap authentication support

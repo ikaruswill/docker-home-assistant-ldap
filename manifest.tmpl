@@ -1,4 +1,4 @@
-image: ikaruswill/home-assistant-ldapsearch:{{#if build.tag}}{{trimPrefix "v" build.tag}}{{else}}latest{{/if}}
+image: ikaruswill/home-assistant-ldap:{{#if build.tag}}{{trimPrefix "v" build.tag}}{{else}}latest{{/if}}
 {{#if build.tags}}
 tags:
 {{#each build.tags}}
@@ -7,13 +7,13 @@ tags:
 {{/if}}
 manifests:
   -
-    image: ikaruswill/home-assistant-ldapsearch:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}linux-arm64
+    image: ikaruswill/home-assistant-ldap:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}linux-arm64
     platform:
       architecture: arm64
       os: linux
       variant: v8
   -
-    image: ikaruswill/home-assistant-ldapsearch:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}linux-arm
+    image: ikaruswill/home-assistant-ldap:{{#if build.tag}}{{trimPrefix "v" build.tag}}-{{/if}}linux-arm
     platform:
       architecture: arm
       os: linux
