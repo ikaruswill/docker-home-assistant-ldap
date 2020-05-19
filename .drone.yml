@@ -1,0 +1,127 @@
+kind: pipeline
+name: linux-arm
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm
+
+clone:
+  depth: 1
+
+steps:
+- name: publish
+  image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1440
+  resources:
+    requests:
+      cpu: 500
+      memory: 100MiB
+    limits:
+      cpu: 500
+      memory: 100MiB
+  settings:
+    repo: ikaruswill/home-assistant-ldapsearch
+    build_args:
+    - HOMEASSISTANT_VERSION=${DRONE_TAG}
+    auto_tag: true
+    auto_tag_suffix: linux-arm
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+node_selector:
+  kubernetes.io/arch: arm
+trigger:
+  ref:
+  - refs/tags/*
+
+---
+kind: pipeline
+name: linux-arm64
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm64
+
+clone:
+  depth: 1
+
+steps:
+- name: publish
+  image: plugins/docker
+  environment:
+    PLUGIN_MTU: 1440
+  resources:
+    requests:
+      cpu: 500
+      memory: 100MiB
+    limits:
+      cpu: 500
+      memory: 100MiB
+  settings:
+    repo: ikaruswill/home-assistant-ldapsearch
+    auto_tag: true
+    auto_tag_suffix: linux-arm64
+    build_args:
+    - HOMEASSISTANT_VERSION=${DRONE_TAG}
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+node_selector:
+  kubernetes.io/arch: arm64
+
+trigger:
+  ref:
+  - refs/tags/*
+
+---
+kind: pipeline
+name: manifests
+type: kubernetes
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+- name: manifest
+  pull: always
+  image: plugins/manifest
+  settings:
+    auto_tag: true
+    ignore_missing: true
+    spec: manifest.tmpl
+    platforms:
+    - linux/arm
+    - linux/arm64
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+node_selector:
+  kubernetes.io/arch: arm
+
+trigger:
+  ref:
+  - refs/tags/*
+
+depends_on:
+- linux-arm
+- linux-arm64
+
+---
+kind: secret
+name: docker_username
+get:
+  path: drone-secrets
+  name: docker_username
+---
+kind: secret
+name: docker_password
+get:
+  path: drone-secrets
+  name: docker_password
