@@ -2,9 +2,6 @@
 Home assistant docker image with added ldap authentication support
 
 ## Usage
-1. Define the following environment variables:
-    1. username
-    1. password
 1. Adapt settings in [config.cfg](example/config.cfg) to fit your infrastructure
 1. Add the following entry to your home-assistant's configuration.yml 
     ```
@@ -14,16 +11,10 @@ Home assistant docker image with added ldap authentication support
         command: ldap-auth
         args: ["/path/to/your/config.cfg"]
         # Uncomment and see below if you want the Home Assistant
-        # user to be populated with his full name.
-        #meta: true
+        # user to be populated with the full name.
+        # meta: true
     ```
 1. Run the docker image `ikaruswill/home-assistant-ldap` in place of `home-assistant` with a volume mount containing your `config.cfg`
-
-## Environment
-| Variable | Description                             |
-|----------|-----------------------------------------|
-| username | username to bind as for searching       |
-| password | password of the user used for searching |
 
 ## Configuration
 
