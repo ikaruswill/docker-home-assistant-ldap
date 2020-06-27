@@ -3,3 +3,4 @@
 .drone.yml
 manifest.tmpl
 Dockerfile
+example
